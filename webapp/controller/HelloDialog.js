@@ -24,12 +24,20 @@ sap.ui.define([
                         oView.byId("helloDialog").close();
                     }
                 }
-            };
+                
             // load async XML fragment 
             Fragment.load({
                 id: oView.getId(),
                 name: "sap.ui.demo.walkthrough.view.HelloDialog",
+                controller : oFragmentController
+            }).then(function (oDialog){
+                // connect dialog to the route view of the component (models, lifecycle)
+                oView.addDependent(oDialog);
+                oDialog.open();
             })
+        } else {
+            oView.byId("helloDialog").open();
         }
-    })
-})
+        }
+    });
+});
